@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 def main():
-    st.title('Diabetes Checkup')
+    st.title('Health Genie - Diabetes Checkup')
     
     # Load the diabetes dataset
     data = pd.read_csv('diabetes.csv')
