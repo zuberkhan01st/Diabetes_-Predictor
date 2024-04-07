@@ -7,17 +7,13 @@ from sklearn.model_selection import train_test_split
 def main():
     st.title('Health Genie - Diabetes Checkup')
     
-    # Load the diabetes dataset
     data = pd.read_csv('diabetes.csv')
 
-    # Separate features (x) and target (y)
     x = data.drop(['Outcome'], axis=1)
     y = data['Outcome']
 
-    # Split the data into training and testing sets
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
-    # Function to get user input
     def user_report():
         pregnancies = st.slider('Pregnancies', 0, 17, 3)
         glucose = st.slider('Glucose', 0, 200, 120)
@@ -41,19 +37,15 @@ def main():
         report_data = pd.DataFrame(user_report, index=[0])
         return report_data
 
-    # Get user input
     user_data = user_report()
 
-    # Train Random Forest classifier
     rf = RandomForestClassifier()
     rf.fit(x_train, y_train)
 
-    # Display model accuracy
     st.subheader('Model Accuracy')
     accuracy = accuracy_score(y_test, rf.predict(x_test))
     st.write(f'Accuracy: {accuracy:.2f}')
 
-    # Predict user's diabetes status
     st.subheader('Your Report')
     user_result = rf.predict(user_data)
     if user_result[0] == 0:
